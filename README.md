@@ -521,6 +521,50 @@ To add specific models to the configuration, configure as such:
 }
 ```
 
+## Agent Client Protocol (ACP) Support
+
+Crush implements the [Agent Client Protocol (ACP)](https://agentclientprotocol.com/), allowing it to be used as an AI coding agent in ACP-compatible IDEs and editors like [Zed](https://zed.dev/).
+
+### Using Crush with ACP-Compatible Editors
+
+To use Crush as an ACP agent, run it with the `acp` command:
+
+```bash
+crush acp
+```
+
+This starts Crush in ACP mode, where it communicates via JSON-RPC 2.0 over stdin/stdout. The agent will:
+
+1. Wait for initialization from the client (IDE)
+2. Create and manage coding sessions
+3. Process prompts and stream responses back to the IDE
+4. Execute code changes and tool calls
+
+### Example: Configuring Zed
+
+To use Crush with Zed, configure it as an agent in your Zed settings:
+
+```json
+{
+  "agents": {
+    "crush": {
+      "command": "crush",
+      "args": ["acp"]
+    }
+  }
+}
+```
+
+### ACP Features Supported
+
+- **Session Management**: Create and load coding sessions
+- **Prompt Handling**: Process user prompts and generate responses
+- **Streaming Updates**: Real-time streaming of agent responses
+- **Cancellation**: Cancel ongoing operations
+- **Context Integration**: Leverage Crush's LSP and MCP integrations
+
+For more information about ACP, visit [agentclientprotocol.com](https://agentclientprotocol.com/).
+
 ## Logging
 
 Sometimes you need to look at logs. Luckily, Crush logs all sorts of
